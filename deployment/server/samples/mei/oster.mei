@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mei xmlns="http://www.music-encoding.org/ns/mei"
+     xmlns:sg="https://example.org/schenker"
+     meiversion="5.0">
+
+  <meiHead>
+    <fileDesc>
+      <titleStmt>
+        <title>Pattern Suggested By Ernst Oster - Schenkerian Graph Prototype</title>
+      </titleStmt>
+      <pubStmt/>
+    </fileDesc>
+  </meiHead>
+
+  <music>
+
+    <!-- ========================================================= -->
+    <!-- 1. Background image + coordinate system                    -->
+    <!-- ========================================================= -->
+
+    <facsimile>
+      <surface xml:id="surface-page-1"
+               ulx="0" uly="0" lrx="930" lry="357">
+
+        <!-- This can be your background score image / scan -->
+        <graphic xml:id="graphic-page-1"
+                 target="image.png"
+                 width="930px"
+                 height="357px"/>
+
+        <!-- System / staff zones. Use these for alignment. -->
+        <zone xml:id="z-system-1"
+              type="schenkerianGraphSystem"
+              ulx="50" uly="70" lrx="880" lry="310"/>
+
+        <zone xml:id="z-treble-staff"
+              type="staff"
+              sg:staffRole="upper"
+              ulx="60" uly="115" lrx="875" lry="170"
+              rotate="0"/>
+
+        <zone xml:id="z-bass-staff"
+              type="staff"
+              sg:staffRole="lower"
+              ulx="60" uly="205" lrx="875" lry="260"
+              rotate="0"/>
+
+        <!-- Urlinie notehead zones. Replace these with real coordinates later. -->
+        <zone xml:id="z-u5-openNotehead" type="openNotehead"
+              ulx="160" uly="120" lrx="176" lry="136"/>
+
+        <zone xml:id="z-u4-openNotehead" type="openNotehead"
+              ulx="602" uly="120" lrx="618" lry="136"/>
+
+        <zone xml:id="z-u3-openNotehead" type="openNotehead"
+              ulx="680" uly="120" lrx="696" lry="136"/>
+
+        <zone xml:id="z-u2-openNotehead" type="openNotehead"
+              ulx="758" uly="130" lrx="774" lry="146"/>
+
+        <zone xml:id="z-u1-openNotehead" type="openNotehead"
+              ulx="835" uly="135" lrx="851" lry="151"/>
+
+        <!-- Caret number zones -->
+        <zone xml:id="z-caret-u5" type="caretNumber"
+              ulx="158" uly="55" lrx="175" lry="75"/>
+
+        <zone xml:id="z-caret-u4" type="caretNumber"
+              ulx="604" uly="55" lrx="620" lry="75"/>
+
+        <zone xml:id="z-caret-u3" type="caretNumber"
+              ulx="682" uly="55" lrx="698" lry="75"/>
+
+        <zone xml:id="z-caret-u2" type="caretNumber"
+              ulx="760" uly="55" lrx="776" lry="75"/>
+
+        <zone xml:id="z-caret-u1" type="caretNumber"
+              ulx="838" uly="55" lrx="854" lry="75"/>
+
+        <!-- Beam zone for the whole Urlinie -->
+        <zone xml:id="z-urlinie-beam"
+              type="urlinie"
+              ulx="172" uly="78" lrx="850" lry="84"/>
+
+        <!-- Bassbrechung nodes -->
+        <zone xml:id="z-bass-I-openNotehead"
+              type="openNotehead"
+              ulx="160" uly="220" lrx="176" lry="236"/>
+
+        <zone xml:id="z-bass-V-openNotehead"
+              type="openNotehead"
+              ulx="455" uly="235" lrx="471" lry="251"/>
+
+        <zone xml:id="z-bass-I2-openNotehead"
+              type="openNotehead"
+              ulx="835" uly="220" lrx="851" lry="236"/>
+
+        <zone xml:id="z-bassbrechung-beam"
+              type="bassbrechung"
+              ulx="163" uly="292" lrx="842" lry="298"/>
+
+        <!-- Roman numeral labels -->
+        <zone xml:id="z-rn-I-left" type="romanNumeral"
+              ulx="155" uly="300" lrx="173" lry="322"/>
+
+        <zone xml:id="z-rn-V-middle" type="romanNumeral"
+              ulx="680" uly="300" lrx="700" lry="322"/>
+
+        <zone xml:id="z-rn-I-right" type="romanNumeral"
+              ulx="835" uly="300" lrx="855" lry="322"/>
+
+        <!-- Middleground slurs / connections -->
+        <zone xml:id="z-slur-upper-left"
+              type="slur"
+              ulx="300" uly="145" lrx="430" lry="170"/>
+
+        <zone xml:id="z-slur-bass-left"
+              type="slur"
+              sg:rend="dashed"
+              ulx="300" uly="235" lrx="460" lry="260"/>
+
+        <!-- Example quaverFlag / minimFlag positions -->
+        <zone xml:id="z-quaverFlag-1"
+              type="quaverFlag"
+              ulx="300" uly="140" lrx="320" lry="170"/>
+
+        <zone xml:id="z-minimFlag-1"
+              type="minimFlag"
+              ulx="455" uly="220" lrx="470" lry="255"/>
+
+        <!-- Interruption / double vertical line -->
+        <zone xml:id="z-interruption-doubleBar"
+              type="interruption"
+              ulx="463" uly="80" lrx="470" lry="292"/>
+
+      </surface>
+    </facsimile>
+
+    <!-- ========================================================= -->
+    <!-- 2. Schenkerian graph body                                 -->
+    <!-- ========================================================= -->
+
+    <body>
+      <mdiv xml:id="mdiv-schenker-graph" type="schenkerianGraph">
+        <score xml:id="score-schenker-graph">
+
+          <scoreDef>
+            <staffGrp symbol="brace">
+              <staffDef n="1"
+                        lines="5"
+                        clef.shape="G"
+                        clef.line="2"
+                        type="schenkerianGraphStaff"
+                        sg:staffRole="upper"
+                        facs="#z-treble-staff"/>
+
+              <staffDef n="2"
+                        lines="5"
+                        clef.shape="F"
+                        clef.line="4"
+                        type="schenkerianGraphStaff"
+                        sg:staffRole="lower"
+                        facs="#z-bass-staff"/>
+            </staffGrp>
+          </scoreDef>
+
+          <section xml:id="section-schenker-graph"
+                   type="schenkerianGraph"
+                   facs="#z-system-1">
+
+            <!-- ================================================= -->
+            <!-- Upper staff: Urlinie                              -->
+            <!-- Urlinie = beamed openNotehead + caretNumber       -->
+            <!-- ================================================= -->
+
+            <staff n="1" facs="#z-treble-staff">
+              <layer n="1" type="background">
+
+                <beam xml:id="sg-urlinie-1"
+                      type="urlinie"
+                      sg:primitive="beam"
+                      facs="#z-urlinie-beam"
+                      plist="#sg-u5 #sg-u4 #sg-u3 #sg-u2 #sg-u1">
+
+                  <note xml:id="sg-u5"
+                        type="openNotehead"
+                        sg:graphRole="urlinie"
+                        pname="g"
+                        oct="5"
+                        dur="2"
+                        stem.dir="up"
+                        facs="#z-u5-openNotehead"/>
+
+                  <note xml:id="sg-u4"
+                        type="openNotehead"
+                        sg:graphRole="urlinie"
+                        pname="f"
+                        oct="5"
+                        dur="2"
+                        stem.dir="up"
+                        facs="#z-u4-openNotehead"/>
+
+                  <note xml:id="sg-u3"
+                        type="openNotehead"
+                        sg:graphRole="urlinie"
+                        pname="e"
+                        oct="5"
+                        dur="2"
+                        stem.dir="up"
+                        facs="#z-u3-openNotehead"/>
+
+                  <note xml:id="sg-u2"
+                        type="openNotehead"
+                        sg:graphRole="urlinie"
+                        pname="d"
+                        oct="5"
+                        dur="2"
+                        stem.dir="up"
+                        facs="#z-u2-openNotehead"/>
+
+                  <note xml:id="sg-u1"
+                        type="openNotehead"
+                        sg:graphRole="urlinie"
+                        pname="c"
+                        oct="5"
+                        dur="2"
+                        stem.dir="up"
+                        facs="#z-u1-openNotehead"/>
+
+                </beam>
+
+                <!-- caretNumber labels -->
+                <dir xml:id="sg-caret-u5"
+                     type="caretNumber"
+                     startid="#sg-u5"
+                     facs="#z-caret-u5">^5</dir>
+
+                <dir xml:id="sg-caret-u4"
+                     type="caretNumber"
+                     startid="#sg-u4"
+                     facs="#z-caret-u4">^4</dir>
+
+                <dir xml:id="sg-caret-u3"
+                     type="caretNumber"
+                     startid="#sg-u3"
+                     facs="#z-caret-u3">^3</dir>
+
+                <dir xml:id="sg-caret-u2"
+                     type="caretNumber"
+                     startid="#sg-u2"
+                     facs="#z-caret-u2">^2</dir>
+
+                <dir xml:id="sg-caret-u1"
+                     type="caretNumber"
+                     startid="#sg-u1"
+                     facs="#z-caret-u1">^1</dir>
+
+                <!-- Interruption marker: double vertical line -->
+                <barLine xml:id="sg-interruption-1"
+                         type="interruption"
+                         rend="dbl"
+                         facs="#z-interruption-doubleBar"/>
+
+                <!-- Middleground filled noteheads / notehead primitives -->
+                <note xml:id="sg-mg-upper-1"
+                      type="notehead"
+                      sg:graphRole="middleground"
+                      pname="g"
+                      oct="4"
+                      dur="4"
+                      facs="#PLACEHOLDER_ZONE_NOTEHEAD_1"/>
+
+                <note xml:id="sg-mg-upper-2"
+                      type="notehead"
+                      sg:graphRole="middleground"
+                      sg:flag="quaverFlag"
+                      pname="e"
+                      oct="4"
+                      dur="8"
+                      facs="#PLACEHOLDER_ZONE_NOTEHEAD_2"/>
+
+                <dir xml:id="sg-quaverFlag-1"
+                     type="quaverFlag"
+                     startid="#sg-mg-upper-2"
+                     facs="#z-quaverFlag-1"/>
+
+                <slur xml:id="sg-slur-upper-left"
+                      type="slur"
+                      subtype="middlegroundConnection"
+                      startid="#sg-mg-upper-1"
+                      endid="#sg-mg-upper-2"
+                      curvedir="below"
+                      facs="#z-slur-upper-left"/>
+
+              </layer>
+            </staff>
+
+            <!-- ================================================= -->
+            <!-- Lower staff: Bassbrechung                         -->
+            <!-- Bassbrechung = beamed bass openNoteheads/stems    -->
+            <!-- ================================================= -->
+
+            <staff n="2" facs="#z-bass-staff">
+              <layer n="1" type="background">
+
+                <beam xml:id="sg-bassbrechung-1"
+                      type="bassbrechung"
+                      sg:primitive="beam"
+                      facs="#z-bassbrechung-beam"
+                      plist="#sg-bass-I #sg-bass-V #sg-bass-I2">
+
+                  <note xml:id="sg-bass-I"
+                        type="openNotehead"
+                        sg:graphRole="bassbrechung"
+                        pname="c"
+                        oct="3"
+                        dur="2"
+                        stem.dir="down"
+                        facs="#z-bass-I-openNotehead"/>
+
+                  <note xml:id="sg-bass-V"
+                        type="openNotehead"
+                        sg:graphRole="bassbrechung"
+                        sg:flag="minimFlag"
+                        pname="g"
+                        oct="2"
+                        dur="2"
+                        stem.dir="down"
+                        facs="#z-bass-V-openNotehead"/>
+
+                  <note xml:id="sg-bass-I2"
+                        type="openNotehead"
+                        sg:graphRole="bassbrechung"
+                        pname="c"
+                        oct="3"
+                        dur="2"
+                        stem.dir="down"
+                        facs="#z-bass-I2-openNotehead"/>
+
+                </beam>
+
+                <dir xml:id="sg-minimFlag-1"
+                     type="minimFlag"
+                     startid="#sg-bass-V"
+                     facs="#z-minimFlag-1"/>
+
+                <!-- Roman numeral / harmonic labels -->
+                <harm xml:id="sg-rn-I-left"
+                      type="romanNumeral"
+                      startid="#sg-bass-I"
+                      facs="#z-rn-I-left">I</harm>
+
+                <harm xml:id="sg-rn-V-middle"
+                      type="romanNumeral"
+                      startid="#sg-bass-V"
+                      facs="#z-rn-V-middle">V</harm>
+
+                <harm xml:id="sg-rn-I-right"
+                      type="romanNumeral"
+                      startid="#sg-bass-I2"
+                      facs="#z-rn-I-right">I</harm>
+
+                <!-- Dotted bass slur -->
+                <slur xml:id="sg-slur-bass-left"
+                      type="slur"
+                      subtype="middlegroundConnection"
+                      rend="dashed"
+                      startid="#sg-bass-I"
+                      endid="#sg-bass-V"
+                      curvedir="above"
+                      facs="#z-slur-bass-left"/>
+
+              </layer>
+            </staff>
+
+            <!-- ================================================= -->
+            <!-- Graph-level semantic annotations                   -->
+            <!-- ================================================= -->
+
+            <annot xml:id="sg-graph-summary"
+                   type="schenkerianGraph">
+              <ptr type="urlinie" target="#sg-urlinie-1"/>
+              <ptr type="bassbrechung" target="#sg-bassbrechung-1"/>
+              <ptr type="slur" target="#sg-slur-upper-left"/>
+              <ptr type="slur" target="#sg-slur-bass-left"/>
+            </annot>
+
+          </section>
+        </score>
+      </mdiv>
+    </body>
+  </music>
+</mei>
