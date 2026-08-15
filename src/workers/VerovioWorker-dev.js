@@ -1,11 +1,16 @@
 /**
- * Compatibility worker for current Verovio WASM prebundle API.
- * Waits until cwrap('vrvToolkit_constructor') works, then constructs toolkit.
+ * Dev worker for the currently bundled Verovio WASM prebundle.
+ *
+ * The prebundle is not synchronously ready after importScripts:
+ *   createWasm().then(run) → initRuntime() → Module.onRuntimeInitialized
+ * cwrap is attached to the module at parse time and is not a readiness signal.
  */
 importScripts('../assets/js/verovio-toolkit-wasm.js');
 
 let toolkit;
 const backlog = [];
+let toolkitStarting = false;
+let toolkitStarted = false;
 
 function handleNeonEvent(evt) {
   const data = evt.data;
@@ -39,54 +44,86 @@ function handleNeonEvent(evt) {
   postMessage(result);
 }
 
-function toolkitReady() {
+function constructorWrapperIsCallable() {
   try {
     if (!verovio || !verovio.module || typeof verovio.module.cwrap !== 'function') {
       return false;
     }
-    verovio.module.cwrap('vrvToolkit_constructor', 'number', []);
-    return true;
+    const constructorFn = verovio.module.cwrap(
+      'vrvToolkit_constructor',
+      'number',
+      [],
+    );
+    return typeof constructorFn === 'function';
   } catch (e) {
     return false;
   }
 }
 
-function startToolkit() {
-  toolkit = new verovio.toolkit();
-  toolkit.setOptions({
-    inputFrom: 'mei',
-    footer: 'none',
-    header: 'none',
-    pageMarginLeft: 0,
-    pageMarginTop: 0,
-    font: 'Bravura',
-    useFacsimile: false,
-    svgAdditionalAttribute: ['syllable@precedes', 'syllable@follows'],
-    svgCss:
-      'g.nc, g.custos, g.clef, g.accid, g.divLine {stroke: currentColor; stroke-width: 30px;}',
-  });
-  console.log('Verovio toolkit: READY');
-  onmessage = handleNeonEvent;
-  for (const message of backlog) {
-    handleNeonEvent(message);
+function tryStartToolkit() {
+  if (toolkitStarted || toolkitStarting) {
+    return;
   }
-  postMessage('ready');
-}
 
-function waitForModule(attempt) {
-  if (toolkitReady()) {
-    startToolkit();
-    return;
+  toolkitStarting = true;
+
+  try {
+    toolkit = new verovio.toolkit();
+    toolkit.setOptions({
+      inputFrom: 'mei',
+      footer: 'none',
+      header: 'none',
+      pageMarginLeft: 0,
+      pageMarginTop: 0,
+      font: 'Bravura',
+      useFacsimile: false,
+      svgAdditionalAttribute: ['syllable@precedes', 'syllable@follows'],
+      svgCss:
+        'g.nc, g.custos, g.clef, g.accid, g.divLine {stroke: currentColor; stroke-width: 30px;}',
+    });
+
+    toolkitStarted = true;
+    console.log('Verovio toolkit: READY');
+    onmessage = handleNeonEvent;
+    for (const message of backlog) {
+      handleNeonEvent(message);
+    }
+    postMessage('ready');
+  } catch (error) {
+    toolkitStarting = false;
+    console.warn('Verovio toolkit construction deferred', error);
   }
-  if (attempt > 200) {
-    console.error('Verovio WASM module failed to initialize');
-    return;
-  }
-  setTimeout(() => waitForModule(attempt + 1), 50);
 }
 
 onmessage = function tempHandler(evt) {
   backlog.push(evt);
 };
 
-waitForModule(0);
+if (verovio && verovio.module) {
+  const previousOnRuntimeInitialized = verovio.module.onRuntimeInitialized;
+  verovio.module.onRuntimeInitialized = function () {
+    if (typeof previousOnRuntimeInitialized === 'function') {
+      previousOnRuntimeInitialized();
+    }
+    tryStartToolkit();
+  };
+}
+
+function waitForAlreadyReady(attempt) {
+  if (toolkitStarted) {
+    return;
+  }
+  if (constructorWrapperIsCallable()) {
+    tryStartToolkit();
+    if (toolkitStarted) {
+      return;
+    }
+  }
+  if (attempt > 200) {
+    console.error('Verovio WASM module failed to initialize');
+    return;
+  }
+  setTimeout(() => waitForAlreadyReady(attempt + 1), 50);
+}
+
+waitForAlreadyReady(0);
