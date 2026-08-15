@@ -46,6 +46,9 @@ export const insertTabHtml: Record<string, string> = {
         </p>
         <p class="insert-element-container">
             <button id="divLineMaxima" class="side-panel-btn insertel smallel" aria-label="DivLine Maxima" title="DivLine Maxima"><img src="${__ASSET_PREFIX__}assets/img/divisio.png" class="image"></button>
+        </p>
+        <p class="insert-element-container">
+            <button id="structuralNote" class="side-panel-btn insertel smallel" aria-label="Structural Note" title="Structural Note (Schenker)">○</button>
         </p>`,
   groupingTab: `<p class="insert-element-container">
             <button id="pes" class="side-panel-btn insertel smallel" aria-label="pes" title="pes"><img src="${__ASSET_PREFIX__}assets/img/pes.png" class="image"></button>

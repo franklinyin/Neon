@@ -298,7 +298,7 @@ function clickHandler(this: SVGGraphicsElement, evt: MouseEvent): void {
           selByStaff: '.staff',
           selByNeume: '.neume',
           selByNc: '.nc',
-          selByLayerElement: '.accid',
+          selByLayerElement: '.accid, .note',
         };
         const selectedClass = modeToClass[selectionMode] || '.syllable';
         const remove = [this.closest(selectedClass)];

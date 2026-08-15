@@ -4,6 +4,7 @@ import * as d3 from 'd3';
 import { getSVGRelCoords, isOutOfSVGBounds, Point } from '../utils/Coordinates';
 import { queueNotification } from '../utils/Notification';
 import { setSettings } from '../utils/LocalSettings';
+import { findNearestStaff, yToLoc } from '../utils/SchenkerTools';
 
 /**
  * Class that handles insert mode, events, and actions.
@@ -104,6 +105,11 @@ class InsertHandler {
       case 'natural':
         this.type = 'accid';
         this.attributes = { accid: 'n' };
+        break;
+      case 'structuralNote':
+        // Stage 1: ordinary <note> with free-X + discrete @loc (Schenkerian)
+        this.type = 'note';
+        this.attributes = { type: 'schenker' };
         break;
       default:
         this.type = '';
@@ -244,6 +250,48 @@ class InsertHandler {
         '[FAIL] Glyph was placed out of bounds! Insertion failed.',
         'error',
       );
+
+    // Schenker structural note: continuous x + discrete staff loc (no stored uly)
+    if (this.type === 'note' && this.attributes?.type === 'schenker') {
+      const staff = findNearestStaff(cursor.x, cursor.y);
+      if (!staff) {
+        return queueNotification(
+          '[FAIL] No staff found for structural note.',
+          'error',
+        );
+      }
+
+      const loc = yToLoc(cursor.y, staff);
+      const xStr = String(Math.round(cursor.x * 100) / 100);
+
+      const schenkerAction: InsertAction = {
+        action: 'insert',
+        param: {
+          elementType: 'note',
+          staffId: staff.id,
+          // ParseInsertAction still requires ulx/uly; uly is not persisted for schenker notes
+          ulx: cursor.x,
+          uly: cursor.y,
+          attributes: {
+            type: 'schenker',
+            loc: String(loc),
+            'schenker:x': xStr,
+          },
+        },
+      };
+
+      this.neonView
+        .edit(schenkerAction, this.neonView.view.getCurrentPageURI())
+        .then(() => {
+          return this.neonView.updateForCurrentPage();
+        })
+        .then(() => {
+          document
+            .querySelector(this.selector)
+            .addEventListener('click', this.handler);
+        });
+      return;
+    }
 
     const editorAction: InsertAction = {
       action: 'insert',

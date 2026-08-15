@@ -406,7 +406,8 @@ export type InsertType =
   | 'torculus'
   | 'porrectus'
   | 'pressus'
-  | 'staff';
+  | 'staff'
+  | 'structuralNote';
 
 /** Insert tab type  */
 export type InsertTabType = 'primitiveTab' | 'groupingTab' | 'systemTab';

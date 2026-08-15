@@ -605,7 +605,7 @@ export async function selectAll(
       selectionClass = '.sylTextRect-display';
       break;
     case 'selByLayerElement':
-      selectionClass = '.clef, .custos, .accid, .divLine';
+      selectionClass = '.clef, .custos, .accid, .divLine, .note';
       break;
     default:
       console.error('Unknown selection type ' + selectionType);
@@ -618,13 +618,13 @@ export async function selectAll(
   for (const element of elements) {
     let grouping = element.closest<SVGGElement>(selectionClass);
     if (grouping === null) {
-      // Check if we click-selected a clef or a custos or an accid or a divLine
-      grouping = element.closest('.clef, .custos, .accid, .divLine');
+      // Check if we click-selected a clef or a custos or an accid or a divLine or a note
+      grouping = element.closest('.clef, .custos, .accid, .divLine, .note');
       if (grouping === null) {
         console.warn(
           'Element ' +
             element.id +
-            ' is not part of specified group and is not a clef or custos or accid or divLine.',
+            ' is not part of specified group and is not a clef or custos or accid or divLine or note.',
         );
         continue;
       }

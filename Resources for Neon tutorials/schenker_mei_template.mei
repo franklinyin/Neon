@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mei xmlns="http://www.music-encoding.org/ns/mei"
      xmlns:sg="https://example.org/schenker"
+     xmlns:schenker="https://example.org/schenker"
      meiversion="5.0">
 
   <meiHead>
@@ -182,50 +183,41 @@
                       facs="#z-urlinie-beam"
                       plist="#sg-u5 #sg-u4 #sg-u3 #sg-u2 #sg-u1">
 
+                  <!-- Stage 1 model: type=schenker + loc + schenker:x (Neon graphical units). No facs / uly. -->
                   <note xml:id="sg-u5"
-                        type="openNotehead"
-                        sg:graphRole="urlinie"
-                        pname="g"
-                        oct="5"
-                        dur="2"
-                        stem.dir="up"
-                        facs="#z-u5-openNotehead"/>
+                        type="schenker"
+                        loc="8"
+                        dur="1"
+                        stem.visible="false"
+                        schenker:x="168"/>
 
                   <note xml:id="sg-u4"
-                        type="openNotehead"
-                        sg:graphRole="urlinie"
-                        pname="f"
-                        oct="5"
-                        dur="2"
-                        stem.dir="up"
-                        facs="#z-u4-openNotehead"/>
+                        type="schenker"
+                        loc="8"
+                        dur="1"
+                        stem.visible="false"
+                        schenker:x="610"/>
 
                   <note xml:id="sg-u3"
-                        type="openNotehead"
-                        sg:graphRole="urlinie"
-                        pname="e"
-                        oct="5"
-                        dur="2"
-                        stem.dir="up"
-                        facs="#z-u3-openNotehead"/>
+                        type="schenker"
+                        loc="8"
+                        dur="1"
+                        stem.visible="false"
+                        schenker:x="688"/>
 
                   <note xml:id="sg-u2"
-                        type="openNotehead"
-                        sg:graphRole="urlinie"
-                        pname="d"
-                        oct="5"
-                        dur="2"
-                        stem.dir="up"
-                        facs="#z-u2-openNotehead"/>
+                        type="schenker"
+                        loc="6"
+                        dur="1"
+                        stem.visible="false"
+                        schenker:x="766"/>
 
                   <note xml:id="sg-u1"
-                        type="openNotehead"
-                        sg:graphRole="urlinie"
-                        pname="c"
-                        oct="5"
-                        dur="2"
-                        stem.dir="up"
-                        facs="#z-u1-openNotehead"/>
+                        type="schenker"
+                        loc="5"
+                        dur="1"
+                        stem.visible="false"
+                        schenker:x="843"/>
 
                 </beam>
 
