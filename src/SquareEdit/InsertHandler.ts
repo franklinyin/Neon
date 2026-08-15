@@ -251,7 +251,10 @@ class InsertHandler {
         'error',
       );
 
-    // Schenker structural note: continuous x + discrete staff loc (no stored uly)
+    // Schenker structural note: continuous x + discrete staff loc (no stored uly).
+    // cursor x/y from getSVGRelCoords are in the same page/facsimile coordinate
+    // space as existing zone ulx/uly/lrx/lry (and rendered staff geometry).
+    // Store schenker:x in that space; do not invent schenker:y.
     if (this.type === 'note' && this.attributes?.type === 'schenker') {
       const staff = findNearestStaff(cursor.x, cursor.y);
       if (!staff) {
@@ -261,7 +264,9 @@ class InsertHandler {
         );
       }
 
+      // Vertical: relative to this staff's existing geometry → discrete @loc
       const loc = yToLoc(cursor.y, staff);
+      // Horizontal: continuous facsimile/page x (same units as zone @ulx)
       const xStr = String(Math.round(cursor.x * 100) / 100);
 
       const schenkerAction: InsertAction = {

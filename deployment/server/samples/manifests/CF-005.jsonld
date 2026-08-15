@@ -1,0 +1,15 @@
+{
+  "@context": "https://ddmal.ca/Neon/contexts/1/manifest.jsonld",
+  "@id": "samples/manifests/CF-005.jsonld",
+  "title": "CF-005",
+  "timestamp": "2026-08-15T05:00:00.000Z",
+  "image": "samples/img/CF-005.png",
+  "mei_annotations": [
+    {
+      "id": "urn:uuid:cf005-0000-4000-8000-000000000001",
+      "type": "Annotation",
+      "body": "samples/mei/CF-005.mei",
+      "target": "samples/img/CF-005.png"
+    }
+  ]
+}

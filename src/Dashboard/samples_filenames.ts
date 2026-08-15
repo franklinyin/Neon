@@ -5,4 +5,7 @@ export const samples = [
   ['CH-E_611_026r', 'folio'],
   ['CH-E_611_028r', 'folio'],
   ['Salzinnes', 'manuscript'],
+  ['oster', 'folio'],
+  ['CF-005', 'folio'],
+  ['HS-008', 'folio'],
 ];

@@ -25,11 +25,11 @@ export function findNearestStaff(x: number, y: number): SVGGElement | null {
 }
 
 /**
- * Convert an SVG-relative y into a discrete staff @loc.
+ * Convert an SVG-/facsimile-relative y into a discrete staff @loc.
  * Verovio: loc 0 = bottom staff line; each +1 is one half staff-space up.
  *
- * Stage 1: assume a standard 5-line staff (4 spaces). Do not count SVG
- * <path> children — those are rendering primitives, not staff-line metadata.
+ * Staff geometry comes from the rendered staff (itself placed from existing
+ * MEI facsimile zones). Stage 1 assumes a standard 5-line staff (4 spaces).
  */
 export function yToLoc(y: number, staff: SVGGElement): number {
   const bbox = getStaffBBox(staff);
