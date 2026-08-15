@@ -1,17 +1,15 @@
+/**
+ * Compatibility worker for current Verovio WASM prebundle API.
+ * Waits until cwrap('vrvToolkit_constructor') works, then constructs toolkit.
+ */
 importScripts('../assets/js/verovio-toolkit-wasm.js');
 
 let toolkit;
 const backlog = [];
 
-/**
- * Parse and respond to messages sent by NeonCore.
- * @param {MessageEvent} evt
- */
 function handleNeonEvent(evt) {
   const data = evt.data;
-  const result = {
-    id: data.id,
-  };
+  const result = { id: data.id };
 
   switch (data.action) {
     case 'renderData':
@@ -41,7 +39,19 @@ function handleNeonEvent(evt) {
   postMessage(result);
 }
 
-verovio.module.onRuntimeInitialized = function () {
+function toolkitReady() {
+  try {
+    if (!verovio || !verovio.module || typeof verovio.module.cwrap !== 'function') {
+      return false;
+    }
+    verovio.module.cwrap('vrvToolkit_constructor', 'number', []);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+function startToolkit() {
   toolkit = new verovio.toolkit();
   toolkit.setOptions({
     inputFrom: 'mei',
@@ -61,10 +71,22 @@ verovio.module.onRuntimeInitialized = function () {
     handleNeonEvent(message);
   }
   postMessage('ready');
-};
-
-function tempHandler(evt) {
-  backlog.push(evt);
 }
 
-onmessage = tempHandler;
+function waitForModule(attempt) {
+  if (toolkitReady()) {
+    startToolkit();
+    return;
+  }
+  if (attempt > 200) {
+    console.error('Verovio WASM module failed to initialize');
+    return;
+  }
+  setTimeout(() => waitForModule(attempt + 1), 50);
+}
+
+onmessage = function tempHandler(evt) {
+  backlog.push(evt);
+};
+
+waitForModule(0);
