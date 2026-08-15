@@ -35,5 +35,8 @@ export function yToLoc(y: number, staff: SVGGElement): number {
   const bbox = getStaffBBox(staff);
   const staffSpace = (bbox.lry - bbox.uly) / 4;
   const halfSpace = staffSpace / 2;
+  if (!Number.isFinite(staffSpace) || halfSpace === 0) {
+    return NaN;
+  }
   return Math.round((bbox.lry - y) / halfSpace);
 }

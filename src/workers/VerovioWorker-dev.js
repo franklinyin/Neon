@@ -5,7 +5,7 @@
  *   createWasm().then(run) → initRuntime() → Module.onRuntimeInitialized
  * cwrap is attached to the module at parse time and is not a readiness signal.
  */
-importScripts('../assets/js/verovio-toolkit-wasm.js');
+importScripts('../assets/js/verovio-toolkit-wasm.js?v=cmn-schenker-insert');
 
 let toolkit;
 const backlog = [];
@@ -24,6 +24,7 @@ function handleNeonEvent(evt) {
       result.attributes = toolkit.getElementAttr(data.elementId);
       break;
     case 'edit':
+      console.log('Verovio edit action', JSON.stringify(data.editorAction));
       result.result = toolkit.edit(data.editorAction);
       break;
     case 'getMEI':

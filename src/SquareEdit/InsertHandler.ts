@@ -266,6 +266,12 @@ class InsertHandler {
 
       // Vertical: relative to this staff's existing geometry → discrete @loc
       const loc = yToLoc(cursor.y, staff);
+      if (!Number.isFinite(loc) || !Number.isFinite(cursor.x) || !staff.id) {
+        return queueNotification(
+          '[FAIL] Could not determine staff position for structural note.',
+          'error',
+        );
+      }
       // Horizontal: continuous facsimile/page x (same units as zone @ulx)
       const xStr = String(Math.round(cursor.x * 100) / 100);
 
