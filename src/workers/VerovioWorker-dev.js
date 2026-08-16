@@ -5,7 +5,7 @@
  *   createWasm().then(run) → initRuntime() → Module.onRuntimeInitialized
  * cwrap is attached to the module at parse time and is not a readiness signal.
  */
-importScripts('../assets/js/verovio-toolkit-wasm.js?v=schenker-center-scale');
+importScripts('../assets/js/verovio-toolkit-wasm.js?v=schenker-skip-setfocus');
 
 let toolkit;
 const backlog = [];
