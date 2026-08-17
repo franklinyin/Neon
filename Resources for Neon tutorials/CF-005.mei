@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://music-encoding.org/schema/dev/mei-all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://music-encoding.org/schema/dev/mei-all.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://music-encoding.org/schema/5.1/mei-all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://music-encoding.org/schema/5.1/mei-all.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <mei
-    xmlns="http://www.music-encoding.org/ns/mei" meiversion="5.0.0-dev">
+    xmlns="http://www.music-encoding.org/ns/mei" meiversion="5.1">
     <meiHead xml:id="m-509dc0e7-6cc3-48f0-a131-1a305ed04992">
         <fileDesc xml:id="m-d416f8da-6846-4a19-9a91-d710cf92da6f">
             <titleStmt xml:id="m-140b30ae-0921-4da8-84a9-12fa9cccb5a7">
@@ -25,7 +25,6 @@
         <body>
             <mdiv xml:id="m-0fa94f03-6165-4c3b-ae35-e740e865c0c1">
                 <!-- https://book.verovio.org/advanced-topics/transposition.html#illustrated-examples -->
-              <!-- 从这里开始 -->
 
                 <score xml:id="m-3b90c995-86f7-4341-bbe8-bdd0b8e3f7b6">
 
@@ -36,14 +35,11 @@
                         </staffGrp>
                     </scoreDef>
 
-                     <!-- 以上是定义乐谱的 -->
-
                     <section xml:id="m-b75daaeb-a08b-4998-b42b-bce6cbd86d3a">
                         <staff n="1">
                             <layer n="1">
                                 <sb n="1" facs="#zone-0000000673109537" xml:id="staff-0000001672035493"/>
                                 <clef xml:id="clef-0000001374857254" facs="#zone-0000000092798844" shape="G" line="2"/>
-                                <sb n="2" facs="null" xml:id="staff-0000002128303943"/>
 
                             </layer>
                         </staff>
@@ -51,8 +47,7 @@
                         <staff n="2">
                             <layer n="1">
                                 <sb n="1" facs="#zone-0000001369027437" xml:id="staff-0000001081017002"/>
-                                <clef xml:id="clef-0000001374857254" facs="#zone-0000000092798845" shape="F" line="4"/>
-                                <sb n="2" facs="null" xml:id="staff-0000002128303944"/>
+                                <clef xml:id="clef-0000001374857255" facs="#zone-0000000092798845" shape="F" line="4"/>
 
                             </layer>
                         </staff>
