@@ -5,7 +5,7 @@
  *   createWasm().then(run) → initRuntime() → Module.onRuntimeInitialized
  * cwrap is attached to the module at parse time and is not a readiness signal.
  */
-importScripts('../assets/js/verovio-toolkit-wasm.js?v=schenker-flip');
+importScripts('../assets/js/verovio-toolkit-wasm.js?v=schenker-delete-beam');
 
 let toolkit;
 const backlog = [];
